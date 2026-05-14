@@ -114,19 +114,6 @@ class BaseDataService(ABC):
     def save_data(self, data: dict[str, Any]) -> None: ...
 
 
-class BaseWebServer(ABC):
-    @abstractmethod
-    def __init__(
-        self,
-        led_data_service: BaseDataService,
-        wifi_data_service: BaseDataService,
-        network_data_service: BaseDataService,
-    ) -> None: ...
-    @abstractmethod
-    async def startup(self) -> None:
-        pass
-
-
 class LightBlinkInformation:
     def __init__(
         self,

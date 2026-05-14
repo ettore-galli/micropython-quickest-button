@@ -7,8 +7,14 @@ dependencies = []
 description = "Micropython rpi pico one-led ne-button UI"
 dynamic = ["version"]
 license = {file = "LICENSE"}
-name = "micropython-led"
+name = "micropython-quickest-button"
 readme = "README.md"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [tool.setuptools.dynamic]
 version = {attr = "led.__version__"}
@@ -36,9 +42,6 @@ test = [
   "pytest-sugar",
   "coverage[toml]",
 ]
-
-[tool.setuptools]
-packages = []
 
 [tool.setuptools_scm]
 

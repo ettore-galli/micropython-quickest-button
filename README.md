@@ -1,12 +1,6 @@
-# micropython-led
+# micropython-quickest-button
 
-Simple led blinker with web interface for control
-
-Demo poroject for
-
-- Web interface for wifi credentials
-- Web interface for controlling the device
-- General project structuring
+Quickest button lights its own led
 
 ## Project setup
 
