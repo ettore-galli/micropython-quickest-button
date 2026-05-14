@@ -4,8 +4,6 @@ import utime as time  # type: ignore[import-not-found]
 from machine import Pin  # type: ignore[import-not-found]
 
 from led.base import (
-    PICO_W_INTERNAL_LED_PIN,
-    AccessPointInformation,
     BasePin,
     BaseTime,
     SpecialPins,
@@ -37,11 +35,24 @@ class HardwarePin(BasePin):
         return self._pin.value()
 
 
-ACCESS_POINT_INFORMATION = AccessPointInformation(
-    ssid="CONFIG-HOST", password="password!"  # noqa: S106
-)
-
-
 class HardwareInformation:
-    def __init__(self, led_pin: int | SpecialPins = PICO_W_INTERNAL_LED_PIN) -> None:
+    def __init__(
+        self,
+        led_pin: int | SpecialPins,
+        led_pins: list[int],
+        led_button_pins: list[int],
+        reset_button_pin: int,
+    ) -> None:
         self.led_pin: int | SpecialPins = led_pin
+        self.led_pins: list[int] = led_pins
+        self.led_button_pins: list[int] = led_button_pins
+        self.reset_button_pin: int = reset_button_pin
+
+
+def get_default_hardware_information() -> HardwareInformation:
+    return HardwareInformation(
+        led_pin=0,
+        led_pins=[10, 11, 12, 13, 14],
+        led_button_pins=[2, 3, 4, 5, 6],
+        reset_button_pin=7,
+    )

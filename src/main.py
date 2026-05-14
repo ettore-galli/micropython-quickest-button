@@ -1,23 +1,17 @@
 import asyncio
 
-from led.base import (
-    LED_PIN_15,
-    AccessPointInformation,
-)
-from led.engine import LedBlinkerEngine
+from led.engine import LedButtonControlEngine
 from led.hardware import (
-    ACCESS_POINT_INFORMATION,
     HardwareInformation,
     HardwarePin,
     HardwareTime,
+    get_default_hardware_information,
 )
-from led.light_service import LightService, retrieve_light_blink_information
+from led.light_service import LedControlService, retrieve_light_blink_information
 
-hardware_information: HardwareInformation = HardwareInformation(led_pin=LED_PIN_15)
+hardware_information: HardwareInformation = get_default_hardware_information()
 
-access_point_information: AccessPointInformation = ACCESS_POINT_INFORMATION
-
-light_service = LightService(
+light_service = LedControlService(
     time=HardwareTime(),
     pin_class=HardwarePin,
     hardware_information=hardware_information,
@@ -25,7 +19,7 @@ light_service = LightService(
 )
 
 if __name__ == "__main__":
-    control_demo = LedBlinkerEngine(
+    control_demo = LedButtonControlEngine(
         time=HardwareTime(),
         light_service=light_service,
     )

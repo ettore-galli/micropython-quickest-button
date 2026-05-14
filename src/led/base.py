@@ -129,11 +129,11 @@ class LightBlinkInformation:
 
 
 DEFAULT_LIGHT_BLINK_INFORMATION = LightBlinkInformation(
-    number_of_flashes=3, flash_duration=100, intra_flash_delay=150, intra_loop_delay=700
+    number_of_flashes=3, flash_duration=0.1, intra_flash_delay=0.2, intra_loop_delay=0.8
 )
 
 
-class BaseLightService(ABC):
+class BaseLedControlService(ABC):
     def __init__(
         self,
         light_blink_information_retriever: Callable[[], LightBlinkInformation],

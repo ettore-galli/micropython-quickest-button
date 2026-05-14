@@ -2,7 +2,7 @@ from collections.abc import Callable
 
 from led.base import (
     DEFAULT_LIGHT_BLINK_INFORMATION,
-    BaseLightService,
+    BaseLedControlService,
     BasePin,
     BaseTime,
     LightBlinkInformation,
@@ -10,7 +10,7 @@ from led.base import (
 from led.hardware import HardwareInformation
 
 
-class LightService(BaseLightService):
+class LedControlService(BaseLedControlService):
     def __init__(
         self,
         time: BaseTime,
@@ -28,7 +28,10 @@ class LightService(BaseLightService):
             else HardwareInformation()
         )
 
-        self.led = self.pin_class(self.hardware_information.led_pin, self.pin_class.OUT)
+        self.leds = [
+            self.pin_class(pin, self.pin_class.OUT)
+            for pin in self.hardware_information.led_pins
+        ]
 
         self.light_blink_information_retriever = light_blink_information_retriever
 
@@ -36,16 +39,16 @@ class LightService(BaseLightService):
         pass
 
     async def led_loop(self) -> None:
+        info: LightBlinkInformation = self.light_blink_information_retriever()
 
         while True:
-            info: LightBlinkInformation = self.light_blink_information_retriever()
-
-            for _ in range(info.number_of_flashes):
-
-                self.led.on()
+            for led in self.leds:
+                led.off()
+            for led in self.leds:
+                led.on()
                 await self.time.sleep(info.flash_duration)
 
-                self.led.off()
+                led.off()
                 await self.time.sleep(info.intra_flash_delay)
 
             await self.time.sleep(info.intra_loop_delay)
