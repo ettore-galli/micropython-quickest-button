@@ -40,12 +40,14 @@ class HardwareInformation:
         self,
         led_pin: int | SpecialPins,
         led_pins: list[int],
-        led_button_pins: list[int],
+        button_pins: list[int],
+        button_to_led_mapping: dict[int, int],
         reset_button_pin: int,
     ) -> None:
         self.led_pin: int | SpecialPins = led_pin
         self.led_pins: list[int] = led_pins
-        self.led_button_pins: list[int] = led_button_pins
+        self.led_button_pins: list[int] = button_pins
+        self.button_to_led_mapping = button_to_led_mapping
         self.reset_button_pin: int = reset_button_pin
 
 
@@ -53,6 +55,7 @@ def get_default_hardware_information() -> HardwareInformation:
     return HardwareInformation(
         led_pin=0,
         led_pins=[10, 11, 12, 13, 14],
-        led_button_pins=[2, 3, 4, 5, 6],
+        button_pins=[17, 18, 19, 20, 21],
+        button_to_led_mapping={2: 10, 3: 11, 4: 12, 5: 13, 6: 14},
         reset_button_pin=7,
     )
