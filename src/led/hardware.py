@@ -40,16 +40,11 @@ class HardwarePin(BasePin):
         self,
         handler: Callable[["BasePin"], None] | None = None,
         trigger: int = Pin.IRQ_FALLING,
-        priority: int = 1,
-        wake: int | None = None,
-        hard: bool = False,  # noqa: FBT001, FBT002
     ) -> object:
+
         return self._pin.irq(
             handler=handler,
             trigger=trigger,
-            priority=priority,
-            wake=wake,
-            hard=hard,
         )
 
 

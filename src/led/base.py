@@ -48,9 +48,6 @@ class BasePin(ABC):
         self,
         handler: Callable[["BasePin"], None] | None = None,
         trigger: int = (IRQ_FALLING | IRQ_RISING),
-        priority: int = 1,
-        wake: int | None = None,
-        hard: bool = False,  # noqa: FBT001, FBT002
     ) -> object:
         pass
 
