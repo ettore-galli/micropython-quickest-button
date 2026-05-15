@@ -56,9 +56,11 @@ class LedControlService(BaseLedControlService):
         self.light_blink_information_retriever = light_blink_information_retriever
 
     def reset_button_handler(self, pin: BasePin) -> None:
+        print("AAAAAAAAAAAAA")
         print(pin)
 
     def response_button_handler(self, pin: BasePin) -> None:
+        print("AAAAAAAAAAAAA")
         print(pin)
 
     async def blink_loop(self) -> None:

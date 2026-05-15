@@ -1,4 +1,5 @@
 import asyncio
+from collections.abc import Callable
 
 import utime as time  # type: ignore[import-not-found]
 from machine import Pin  # type: ignore[import-not-found]
@@ -34,6 +35,22 @@ class HardwarePin(BasePin):
 
     def value(self) -> int:
         return self._pin.value()
+
+    def irq(
+        self,
+        handler: Callable[["BasePin"], None] | None = None,
+        trigger: int = Pin.IRQ_FALLING,
+        priority: int = 1,
+        wake: int | None = None,
+        hard: bool = False,  # noqa: FBT001, FBT002
+    ) -> object:
+        return self._pin.irq(
+            handler=handler,
+            trigger=trigger,
+            priority=priority,
+            wake=wake,
+            hard=hard,
+        )
 
 
 class HardwareInformation:

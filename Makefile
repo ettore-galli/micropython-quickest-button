@@ -45,7 +45,7 @@ deploy-dev: \
 deploy-full: \
 	deploy-cleanup-all \
 	deploy-python-dummies \
-	deploy-code \
+	deploy-code 
 	mpremote reset
 
  
