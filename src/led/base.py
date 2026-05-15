@@ -40,60 +40,6 @@ class BasePin(ABC):
         pass
 
 
-class AccessPointInformation:
-    def __init__(self, ssid: str, password: str) -> None:
-        self.ssid: str = ssid
-        self.password: str = password
-
-
-class BaseAccessPoint(ABC):
-    def __init__(self, access_point_information: AccessPointInformation) -> None:
-        self.access_point_information = access_point_information
-
-    @abstractmethod
-    async def startup(self) -> None:
-        pass
-
-
-class WifiClientInformation:
-    def __init__(self, ssid: str, password: str) -> None:
-        self.ssid: str = ssid
-        self.password: str = password
-        self.poll_interval: int = 1
-        self.connection_timeout: int = 10
-
-
-EMPTY_WIFI_CLIENT_INFORMATION = WifiClientInformation(ssid="", password="")
-
-
-class BaseWifiClient(ABC):
-    def __init__(
-        self,
-        wifi_client_information_retriever: Callable[[], WifiClientInformation],
-        time: BaseTime,
-        logger: Callable[[str], None] = rpi_logger,
-    ) -> None:
-        self.wifi_client_information_retriever = wifi_client_information_retriever
-        self.time = time
-        self.logger = logger
-
-    @abstractmethod
-    async def startup(self) -> None:
-        pass
-
-
-class BaseDataService(ABC):
-
-    def __init__(self, data_file: str) -> None:
-        self.data_file = data_file
-
-    @abstractmethod
-    def get_data(self) -> dict[str, Any]: ...
-
-    @abstractmethod
-    def save_data(self, data: dict[str, Any]) -> None: ...
-
-
 class LightBlinkInformation:
     def __init__(
         self,
