@@ -1,8 +1,6 @@
 from abc import ABC, abstractmethod
 from collections.abc import Callable
-from typing import Any, TypeAlias
-
-Incomplete: TypeAlias = Any
+from typing import TypeAlias
 
 SpecialPins: TypeAlias = str
 
@@ -43,6 +41,18 @@ class BasePin(ABC):
 
     @abstractmethod
     def value(self) -> int:
+        pass
+
+    @abstractmethod
+    def irq(
+        self,
+        handler: Callable[["BasePin"], None] | None = None,
+        trigger: int = (IRQ_FALLING | IRQ_RISING),
+        *,
+        priority: int = 1,
+        wake: int | None = None,
+        hard: bool = False,
+    ) -> object:
         pass
 
 

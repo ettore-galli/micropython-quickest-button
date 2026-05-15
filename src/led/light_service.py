@@ -44,7 +44,22 @@ class LedControlService(BaseLedControlService):
             self.pin_class.PULL_UP,
         )
 
+        for response_button in self.response_buttons:
+            response_button.irq(
+                trigger=self.pin_class.IRQ_FALLING, handler=self.response_button_handler
+            )
+
+        self.reset_button.irq(
+            trigger=self.pin_class.IRQ_FALLING, handler=self.reset_button_handler
+        )
+
         self.light_blink_information_retriever = light_blink_information_retriever
+
+    def reset_button_handler(self, pin: BasePin) -> None:
+        print(pin)
+
+    def response_button_handler(self, pin: BasePin) -> None:
+        print(pin)
 
     async def blink_loop(self) -> None:
         pass
