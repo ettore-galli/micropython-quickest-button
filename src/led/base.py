@@ -1,9 +1,5 @@
 from abc import ABC, abstractmethod
 from collections.abc import Callable
-from typing import TypeAlias
-
-SpecialPins: TypeAlias = str
-
 
 rpi_logger = print
 
@@ -28,8 +24,10 @@ class BasePin(ABC):
     IRQ_LOW_LEVEL: int = 1
     IRQ_HIGH_LEVEL: int = 2
 
-    def __init__(self, pin_id: int | SpecialPins, mode: int, pull: int = -1) -> None:
-        _ = pin_id, mode, pull
+    def __init__(self, pin_id: int, mode: int, pull: int = -1) -> None:
+        self.pin_id: int = pin_id
+        self.mode: int = mode
+        self.pull: int = pull
 
     @abstractmethod
     def on(self) -> None:
@@ -41,6 +39,10 @@ class BasePin(ABC):
 
     @abstractmethod
     def value(self) -> int:
+        pass
+
+    @abstractmethod
+    def id(self) -> int:
         pass
 
     @abstractmethod

@@ -7,7 +7,6 @@ from machine import Pin  # type: ignore[import-not-found]
 from led.base import (
     BasePin,
     BaseTime,
-    SpecialPins,
 )
 
 
@@ -23,7 +22,10 @@ class HardwarePin(BasePin):
     OUT: int = 1
     IN: int = 0
 
-    def __init__(self, pin_id: int | SpecialPins, mode: int, pull: int = -1) -> None:
+    def __init__(self, pin_id: int, mode: int, pull: int = -1) -> None:
+        self.pin_id: int = pin_id
+        self.mode: int = mode
+        self.pull: int = pull
         self._pin: Pin = Pin(pin_id, mode, pull)
         self._pin.irq()
 
@@ -35,6 +37,9 @@ class HardwarePin(BasePin):
 
     def value(self) -> int:
         return self._pin.value()
+
+    def id(self) -> int:
+        return self._pin.id()
 
     def irq(
         self,
@@ -51,13 +56,13 @@ class HardwarePin(BasePin):
 class HardwareInformation:
     def __init__(
         self,
-        led_pin: int | SpecialPins,
+        led_pin: int,
         led_pins: list[int],
         button_pins: list[int],
         button_to_led_mapping: dict[int, int],
         reset_button_pin: int,
     ) -> None:
-        self.led_pin: int | SpecialPins = led_pin
+        self.led_pin: int = led_pin
         self.led_pins: list[int] = led_pins
         self.led_button_pins: list[int] = button_pins
         self.button_to_led_mapping = button_to_led_mapping
