@@ -6,26 +6,6 @@ Incomplete: TypeAlias = Any
 
 SpecialPins: TypeAlias = str
 
-PICO_W_INTERNAL_LED_PIN: SpecialPins = "LED"
-LED_PIN_15: int = 15
-
-WEB_PAGES_PATH: str = "./web"
-
-WEB_PAGE_INDEX_WIFI = "wifi"
-WEB_PAGE_INDEX_LED = "led"
-WEB_PAGE_INDEX_IP = "ip"
-
-WEB_PAGES: dict[str, str] = {
-    WEB_PAGE_INDEX_LED: "led.html",
-    WEB_PAGE_INDEX_WIFI: "wifi.html",
-    WEB_PAGE_INDEX_IP: "ip.html",
-}
-
-DATA_FILES: dict[str, str] = {
-    WEB_PAGE_INDEX_LED: "./data/led.json",
-    WEB_PAGE_INDEX_WIFI: "./data/wifi.json",
-    WEB_PAGE_INDEX_IP: "",
-}
 
 rpi_logger = print
 
