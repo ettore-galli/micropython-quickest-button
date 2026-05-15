@@ -23,9 +23,13 @@ class BaseTime(ABC):
 class BasePin(ABC):
     OUT: int = 1
     IN: int = 0
+    PULL_UP: int = 1
+    PULL_DOWN: int = 2
+    IRQ_FALLING: int = 4
+    IRQ_RISING: int = 8
 
-    def __init__(self, pin_id: int | SpecialPins, mode: int) -> None:
-        _ = pin_id, mode
+    def __init__(self, pin_id: int | SpecialPins, mode: int, pull: int = -1) -> None:
+        _ = pin_id, mode, pull
 
     @abstractmethod
     def on(self) -> None:

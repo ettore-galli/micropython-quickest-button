@@ -33,6 +33,17 @@ class LedControlService(BaseLedControlService):
             for pin in self.hardware_information.led_pins
         ]
 
+        self.response_buttons = [
+            self.pin_class(pin, self.pin_class.IN, self.pin_class.PULL_UP)
+            for pin in self.hardware_information.led_button_pins
+        ]
+
+        self.reset_button = self.pin_class(
+            self.hardware_information.reset_button_pin,
+            self.pin_class.IN,
+            self.pin_class.PULL_UP,
+        )
+
         self.light_blink_information_retriever = light_blink_information_retriever
 
     async def blink_loop(self) -> None:

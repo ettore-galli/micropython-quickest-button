@@ -22,8 +22,8 @@ class HardwarePin(BasePin):
     OUT: int = 1
     IN: int = 0
 
-    def __init__(self, pin_id: int | SpecialPins, mode: int) -> None:
-        self._pin: Pin = Pin(pin_id, mode)
+    def __init__(self, pin_id: int | SpecialPins, mode: int, pull: int = -1) -> None:
+        self._pin: Pin = Pin(pin_id, mode, pull)
 
     def on(self) -> None:
         self._pin.on()
