@@ -70,5 +70,5 @@ def get_default_hardware_information() -> HardwareInformation:
         led_pins=[10, 11, 12, 13, 14],
         button_pins=[17, 18, 19, 20, 21],
         button_to_led_mapping={2: 10, 3: 11, 4: 12, 5: 13, 6: 14},
-        reset_button_pin=7,
+        reset_button_pin=22,
     )
