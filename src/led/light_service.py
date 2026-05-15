@@ -30,27 +30,30 @@ class LedControlService(BaseLedControlService):
             else HardwareInformation()
         )
 
-        self.leds = [
-            self.pin_class(pin, self.pin_class.OUT)
-            for pin in self.hardware_information.led_pins
-        ]
+        self.leds: list[Pin] = []
+        self.response_buttons: list[Pin] = []
 
-        self.response_buttons = [
-            self.pin_class(pin, self.pin_class.IN, self.pin_class.PULL_UP)
-            for pin in self.hardware_information.led_button_pins
-        ]
+        for idx, (button, led) in enumerate(
+            self.hardware_information.button_to_led_mapping.items()
+        ):
+            self.leds.append(self.pin_class(led, self.pin_class.OUT))
+
+            response_button = self.pin_class(
+                button, self.pin_class.IN, self.pin_class.PULL_UP
+            )
+
+            response_button.irq(
+                trigger=self.pin_class.IRQ_FALLING,
+                handler=self.response_button_handler_builder(led_id=idx),
+            )
+
+            self.response_buttons.append(response_button)
 
         self.reset_button = self.pin_class(
             self.hardware_information.reset_button_pin,
             self.pin_class.IN,
             self.pin_class.PULL_UP,
         )
-
-        for idx, response_button in enumerate(self.response_buttons):
-            response_button.irq(
-                trigger=self.pin_class.IRQ_FALLING,
-                handler=self.response_button_handler_builder(led_id=idx),
-            )
 
         self.reset_button.irq(
             trigger=self.pin_class.IRQ_FALLING, handler=self.reset_button_handler
