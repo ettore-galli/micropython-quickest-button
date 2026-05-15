@@ -27,6 +27,8 @@ class BasePin(ABC):
     PULL_DOWN: int = 2
     IRQ_FALLING: int = 4
     IRQ_RISING: int = 8
+    IRQ_LOW_LEVEL: int = 1
+    IRQ_HIGH_LEVEL: int = 2
 
     def __init__(self, pin_id: int | SpecialPins, mode: int, pull: int = -1) -> None:
         _ = pin_id, mode, pull
