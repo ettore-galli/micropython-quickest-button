@@ -26,5 +26,5 @@ class LedButtonControlEngine:
 
     async def main(self) -> None:
         await asyncio.gather(
-            self.light_service.led_loop(),
+            self.light_service.main(),
         )

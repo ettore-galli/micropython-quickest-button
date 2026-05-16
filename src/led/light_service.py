@@ -72,10 +72,7 @@ class LedControlService(BaseLedControlService):
 
         return handler
 
-    async def blink_loop(self) -> None:
-        pass
-
-    async def led_loop(self) -> None: ...
+    async def main(self) -> None: ...
 
 
 def retrieve_light_blink_information() -> LightBlinkInformation:
