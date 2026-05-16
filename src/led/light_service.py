@@ -61,18 +61,14 @@ class LedControlService(BaseLedControlService):
 
         self.light_blink_information_retriever = light_blink_information_retriever
 
-        self.led_is_lit: bool = False
-
     def reset_button_handler(self, _: Pin) -> None:
         for led in self.leds:
             led.off()
-            self.led_is_lit = False
 
     def response_button_handler_builder(self, led_id: int) -> Callable[[Pin], None]:
         def handler(_: Pin) -> None:
-            if not self.led_is_lit:
+            if not any(led.is_on() for led in self.leds):
                 self.leds[led_id].on()
-                self.led_is_lit = True
 
         return handler
 

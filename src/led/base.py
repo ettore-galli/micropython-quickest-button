@@ -42,6 +42,10 @@ class BasePin(ABC):
         pass
 
     @abstractmethod
+    def is_on(self) -> bool:
+        pass
+
+    @abstractmethod
     def id(self) -> int:
         pass
 

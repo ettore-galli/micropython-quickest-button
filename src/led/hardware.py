@@ -21,6 +21,8 @@ class HardwareTime(BaseTime):
 class HardwarePin(BasePin):
     OUT: int = 1
     IN: int = 0
+    ON: int = 1
+    OFF: int = 0
 
     def __init__(self, pin_id: int, mode: int, pull: int = -1) -> None:
         self.pin_id: int = pin_id
@@ -37,6 +39,9 @@ class HardwarePin(BasePin):
 
     def value(self) -> int:
         return self._pin.value()
+
+    def is_on(self) -> bool:
+        return self.value() == self.ON
 
     def id(self) -> int:
         return self._pin.id()
