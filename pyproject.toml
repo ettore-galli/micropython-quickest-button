@@ -1,6 +1,9 @@
 [build-system]
 build-backend = "setuptools.build_meta"
-requires = ["setuptools >= 70.1"]
+requires = [
+  "setuptools >= 70.1",
+  "setuptools-scm>=10.0.5",
+]
 
 [project]
 dependencies = []
@@ -15,9 +18,6 @@ package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
-
-[tool.setuptools.dynamic]
-version = {attr = "led.__version__"}
 
 [project.optional-dependencies]
 development = [
@@ -44,6 +44,7 @@ test = [
 ]
 
 [tool.setuptools_scm]
+write_to = "src/led/_version.py"
 
 [tool.ruff]
 extend-exclude = [
